@@ -46,5 +46,6 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ItemHolder> {
 
     public interface OnClickListener {
         void onClick(int position);
+        //void onClickAdd(int position);
     }
 }

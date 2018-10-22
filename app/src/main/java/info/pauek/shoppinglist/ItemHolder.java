@@ -21,6 +21,7 @@ public class ItemHolder extends RecyclerView.ViewHolder {
                     int pos = getAdapterPosition();
 
                     onClickListener.onClick(pos);
+                    //onClickListener.onClickAdd(pos);
                 }
             }
         });

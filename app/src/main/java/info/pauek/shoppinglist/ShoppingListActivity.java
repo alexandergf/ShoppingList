@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -15,7 +16,7 @@ import java.util.List;
 
 public class ShoppingListActivity extends AppCompatActivity {
 
-    // TODO: 1. Afegir un CheckBox a cada ítem, per marcar o desmarcar els ítems (al model també!) (hecho)
+    // TODO: Afegir un CheckBox a cada ítem, per marcar o desmarcar els ítems (al model també!) (falta arreglar)
     // TODO: 2. Que es puguin afegir elements (+ treure els inicials)
     // TODO: 3. Afegir un menú amb una opció per esborrar de la llista tots els marcats.
     // TODO: 4. Que es pugui esborrar un element amb LongClick (cal fer OnLongClickListener)
@@ -68,6 +69,16 @@ public class ShoppingListActivity extends AppCompatActivity {
                     item.setChecked(true);
                 }
                 adapter.notifyItemChanged(position);
+
+            }
+
+        });
+        btn_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String nuevo= String.valueOf(edit_box.getText());
+                items.add(new ShoppingItem(nuevo,false));
+                adapter.notifyDataSetChanged();
             }
         });
     }
