@@ -6,17 +6,20 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 
 import java.util.List;
 
 public class ShoppingListAdapter extends RecyclerView.Adapter<ItemHolder> {
     Context context;
     List<ShoppingItem> items;
+    CheckBox checkBox_item;
     private OnClickListener onClickListener;
 
     public ShoppingListAdapter(Context context, List<ShoppingItem> items) {
         this.context = context;
         this.items = items;
+
     }
 
     @NonNull
@@ -29,6 +32,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ItemHolder> {
     @Override
     public void onBindViewHolder(@NonNull ItemHolder holder, int pos) {
         holder.bind(items.get(pos));
+
     }
 
     @Override

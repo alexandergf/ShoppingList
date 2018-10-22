@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -15,14 +15,14 @@ import java.util.List;
 
 public class ShoppingListActivity extends AppCompatActivity {
 
-    // TODO: 1. Afegir un CheckBox a cada ítem, per marcar o desmarcar els ítems (al model també!)
+    // TODO: 1. Afegir un CheckBox a cada ítem, per marcar o desmarcar els ítems (al model també!) (hecho)
     // TODO: 2. Que es puguin afegir elements (+ treure els inicials)
     // TODO: 3. Afegir un menú amb una opció per esborrar de la llista tots els marcats.
     // TODO: 4. Que es pugui esborrar un element amb LongClick (cal fer OnLongClickListener)
 
     // Model
     List<ShoppingItem> items;
-
+    private CheckBox checkBox_item;
     // Referències a elements de la pantalla
     private RecyclerView items_view;
     private ImageButton btn_add;
@@ -35,12 +35,13 @@ public class ShoppingListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_shopping_list);
 
         items = new ArrayList<>();
-        items.add(new ShoppingItem("Potatoes"));
-        items.add(new ShoppingItem("Toilet Paper"));
+        items.add(new ShoppingItem("Potatoes", true));
+        items.add(new ShoppingItem("Toilet Paper", false));
 
         items_view = findViewById(R.id.items_view);
         btn_add = findViewById(R.id.btn_add);
         edit_box = findViewById(R.id.edit_box);
+        checkBox_item= findViewById(R.id.checkBox_item);
 
         adapter = new ShoppingListAdapter(this, items);
 
@@ -55,6 +56,18 @@ public class ShoppingListActivity extends AppCompatActivity {
             public void onClick(int position) {
                 String msg = "Has clicat: " + items.get(position).getName();
                 Toast.makeText(ShoppingListActivity.this, msg, Toast.LENGTH_SHORT).show();
+                ShoppingItem item = items.get(position);
+
+                //checkBox_item= findViewById(R.id.checkBox_item);
+
+                boolean checked = item.isChecked();
+
+                if (checked){
+                    item.setChecked(false);
+                }else{
+                    item.setChecked(true);
+                }
+                adapter.notifyItemChanged(position);
             }
         });
     }
