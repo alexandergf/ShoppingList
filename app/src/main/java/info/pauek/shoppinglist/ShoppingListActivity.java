@@ -19,7 +19,7 @@ import java.util.List;
 
 public class ShoppingListActivity extends AppCompatActivity {
 
-    // TODO: 3. Afegir un menú amb una opció per esborrar de la llista tots els marcats.
+
     // TODO: 4. Que es pugui esborrar un element amb LongClick (cal fer OnLongClickListener)
 
     // Model
@@ -80,20 +80,6 @@ public class ShoppingListActivity extends AppCompatActivity {
                 adapter.notifyItemInserted(items.size()-1);
             }
         });
-
-        /*btn_delete.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.btn_delete:
-
-                        items.clear();
-                        break;
-                }
-
-                return true;
-            }
-        });*/
     }
 
     @Override
@@ -106,13 +92,24 @@ public class ShoppingListActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.btn_delete:
+                comproba();
 
-                items.clear();
                 adapter.notifyDataSetChanged();
                 break;
         }
         return true;
 
 
+    }
+    public void comproba(){
+        int i=0;
+        while (i<items.size()){
+            ShoppingItem item = items.get(i);
+            if (item.isChecked()){
+                items.remove(i);
+            }else{
+                i++;
+            }
+        }
     }
 }
