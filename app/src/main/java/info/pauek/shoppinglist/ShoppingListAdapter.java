@@ -15,7 +15,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ItemHolder> {
     List<ShoppingItem> items;
     CheckBox checkBox_item;
     private OnClickListener onClickListener;
-
+    private OnLongClickListener onLongClickListener;
     public ShoppingListAdapter(Context context, List<ShoppingItem> items) {
         this.context = context;
         this.items = items;
@@ -26,7 +26,8 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ItemHolder> {
     @Override
     public ItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(context).inflate(R.layout.item_view, parent, false);
-        return new ItemHolder(itemView, onClickListener);
+        return new ItemHolder(itemView, onClickListener, onLongClickListener);
+
     }
 
     @Override
@@ -46,6 +47,13 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ItemHolder> {
 
     public interface OnClickListener {
         void onClick(int position);
-        //void onClickAdd(int position);
+    }
+    public void setOnLongClickListener(OnLongClickListener listener) {
+        this.onLongClickListener = listener;
+    }
+
+    public interface OnLongClickListener {
+        void onLongClick(int position);
+
     }
 }

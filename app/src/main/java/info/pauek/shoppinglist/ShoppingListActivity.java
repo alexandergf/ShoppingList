@@ -30,7 +30,6 @@ public class ShoppingListActivity extends AppCompatActivity {
     private ImageButton btn_add;
     private EditText edit_box;
     private ShoppingListAdapter adapter;
-    private MenuItem btn_delete;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +43,7 @@ public class ShoppingListActivity extends AppCompatActivity {
         btn_add = findViewById(R.id.btn_add);
         edit_box = findViewById(R.id.edit_box);
         checkBox_item= findViewById(R.id.checkBox_item);
-        btn_delete=findViewById(R.id.btn_delete);
+
         adapter = new ShoppingListAdapter(this, items);
 
         items_view.setLayoutManager(new LinearLayoutManager(this));
@@ -72,6 +71,14 @@ public class ShoppingListActivity extends AppCompatActivity {
             }
 
         });
+        adapter.setOnLongClickListener(new ShoppingListAdapter.OnLongClickListener() {
+            @Override
+            public void onLongClick(int position) {
+                items.remove(position);
+                adapter.notifyItemRemoved(position);
+            }
+        });
+
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,7 +99,7 @@ public class ShoppingListActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.btn_delete:
-                comproba();
+                borrar();
 
                 adapter.notifyDataSetChanged();
                 break;
@@ -101,7 +108,7 @@ public class ShoppingListActivity extends AppCompatActivity {
 
 
     }
-    public void comproba(){
+    public void borrar(){
         int i=0;
         while (i<items.size()){
             ShoppingItem item = items.get(i);
